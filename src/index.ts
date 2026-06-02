@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import path from "path";
 
 import authRoutes from "./routes/auth";
 import memberRoutes from "./routes/members";
@@ -17,11 +18,13 @@ const allowedOrigins = [
   "http://localhost:5173",                      // Vite dev (local)
   "http://localhost:3000",                      // alternative dev port
   "https://sayitloudclub-2026.netlify.app",    // old Netlify (paused)
-  "https://attendance-frontend.vercel.app"     // new Vercel frontend
+  "https://attendance-frontend.vercel.app",    // first Vercel deployment
+  "https://sayitloudclub.vercel.app"           // your renamed Vercel domain
 ];
 
 app.use(cors({
   origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl)
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
