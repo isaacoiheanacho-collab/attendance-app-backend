@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import cors from "cors";                    // ✅ CORS added
+import cors from "cors";
 
 import authRoutes from "./routes/auth";
 import memberRoutes from "./routes/members";
@@ -16,12 +16,12 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:5173",                      // Vite dev (local)
   "http://localhost:3000",                      // alternative dev port
-  "https://sayitloudclub-2026.netlify.app"      // your live frontend
+  "https://sayitloudclub-2026.netlify.app",    // old Netlify (paused)
+  "https://attendance-frontend.vercel.app"     // new Vercel frontend
 ];
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or curl)
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -30,13 +30,13 @@ app.use(cors({
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true,        // if you ever use cookies/sessions
+  credentials: true,
 }));
 
 // Middleware
 app.use(express.json());
 
-// Serve uploaded images (if any are stored locally – though you use Cloudinary)
+// Serve uploaded images (if any – though you use Cloudinary)
 app.use("/uploads", express.static("uploads"));
 
 // Health check
