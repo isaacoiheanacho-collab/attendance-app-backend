@@ -18,6 +18,7 @@ const allowedOrigins = [
   "http://localhost:3000",                      // alternative dev port
   "https://sayitloudclub-2026.netlify.app",    // old Netlify (paused)
   "https://attendance-frontend.vercel.app"     // new Vercel frontend
+  "https://sayitloudclub.vercel.app"
 ];
 
 app.use(cors({
